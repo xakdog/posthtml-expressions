@@ -9,15 +9,13 @@
   "bugs": {
     "url": "https://github.com/posthtml/posthtml-exp/issues"
   },
-  "dependencies": {
-    "lodash.clonedeep": "^4.3.2",
-    "lodash.merge": "^4.4.0"
-  },
   "devDependencies": {
     "ava": "^0.15.2",
     "coveralls": "^2.11.9",
     "nyc": "^7.0.0",
-    "posthtml": "^0.9.0",
+    "posthtml": "static-dev/posthtml",
+    "posthtml-code-gen": "static-dev/posthtml-code-gen",
+    "posthtml-parser2": "static-dev/posthtml-parser2",
     "snazzy": "^4.0.0",
     "standard": "^7.1.2"
   },

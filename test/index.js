@@ -1,6 +1,8 @@
 const test = require('ava')
 const path = require('path')
 const posthtml = require('posthtml')
+const parser = require('posthtml-parser2')
+const generator = require('posthtml-code-gen')
 const exp = require('../lib')
 const {readFileSync} = require('fs')
 const fixtures = path.join(__dirname, 'fixtures')
@@ -155,10 +157,10 @@ function matchExpected (t, name, config, log = false) {
   const html = readFileSync(path.join(fixtures, `${name}.html`), 'utf8')
   const expected = readFileSync(path.join(fixtures, `${name}.expected.html`), 'utf8')
 
-  return posthtml([exp(config)])
+  return posthtml({ plugins: exp(config), parser, generator })
     .process(html)
-    .then((res) => { log && console.log(res.html); return res })
-    .then((res) => { t.truthy(res.html.trim() === expected.trim()) })
+    .then((res) => { log && console.log(res.output.toString(), '\n----------\n', res.output(config.locals)); return res })
+    .then((res) => { t.truthy(res.output(config.locals).trim() === expected.trim()) })
 }
 
 function expectError (name, cb) {
